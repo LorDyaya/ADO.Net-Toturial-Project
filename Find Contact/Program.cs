@@ -82,13 +82,23 @@ namespace Contactspresentation_layer
             }
         }
 
+        static void testGetAllContacts()
+        {
+            DataTable datatable = ClsContact.GetAllContacts();
+            Console.WriteLine("Contacts Data : ");
+            foreach (DataRow row in datatable.Rows)
+            {
+                Console.WriteLine($"{row["ContactID"]} , {row["FirstName"]} {row["LastName"]}");
+            }
+        }
 
         static void Main(string[] args)
         {
             //testFindContact(3);
             //testAddNewContact();
             //testUpdateContact(2);
-            testDeleteContact(7);
+            //testDeleteContact(20);
+            testGetAllContacts();
             Console.ReadKey();
         }
     }
