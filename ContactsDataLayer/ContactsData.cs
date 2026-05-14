@@ -28,7 +28,6 @@ namespace ContactsDataLayer
                     Phone = (string)reader["Phone"];
                     Address = (string)reader["Address"];
                     DateOfBirth = (DateTime)reader["DateOfBirth"];
-                    ImagePath = (string)reader["ImagePath"];                   
                     countryID = (int)reader["countryID"];
                 }
                 else
