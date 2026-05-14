@@ -6,6 +6,8 @@ namespace ContactsBusinessLayer
 {
     public class ClsContact
     {
+        public enum EnMode {AddNew = 0 , Update = 1};
+        EnMode Mode = EnMode.AddNew;
         public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -27,6 +29,8 @@ namespace ContactsBusinessLayer
             this.DateOfBirth = DateTime.Now;
             this.countryID = -1;
             this.ImagePath = "";
+
+            Mode = EnMode.AddNew ;
          
         }
 
@@ -41,7 +45,24 @@ namespace ContactsBusinessLayer
             this.Address = Address;                                                 
             this.DateOfBirth = DateOfBirth;
             this.countryID = countryID;
-            this.ImagePath = ImagePath;            
+            this.ImagePath = ImagePath; 
+            
+            Mode = EnMode.Update ;
+        }
+
+        private bool _AddNewContact()
+        {
+            this.ID = ClsContactsDataAccsess.AddNewContact(this.FirstName,this.LastName,this.Email,
+                this.Phone,this.Address,this.DateOfBirth,this.ImagePath,this.countryID);
+
+            return (this.ID != -1);
+        }
+
+        private bool _UpdateContact()
+        {
+            return ClsContactsDataAccsess.UpdateContact(this.ID, this.FirstName, this.LastName, this.Email,
+                           this.Phone, this.Address, this.DateOfBirth, this.ImagePath, this.countryID);
+
         }
 
         public static ClsContact Find(int ID)
@@ -59,6 +80,28 @@ namespace ContactsBusinessLayer
             else
                 return null;            
         }
+
+        public bool Save()
+            //save method
+        {
+            switch (Mode)
+            {
+                case EnMode.AddNew:
+                    if (_AddNewContact())
+                    {
+                        Mode = EnMode.Update;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case EnMode.Update:
+                    return _UpdateContact();
+            }
+            return false;
+        }
+
 
     };
 
