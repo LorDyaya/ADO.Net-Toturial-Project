@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ContactsDataLayer;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace ContactsDataLayer
+namespace ContactsData_Layer
 {
     public class ClsContactsDataAccsess
     {
@@ -109,7 +110,7 @@ namespace ContactsDataLayer
         }
 
 
-        static public bool UpdateContact(int ID, string FirstName, string LastName, string Email, string Phone,
+        public static bool UpdateContact(int ID, string FirstName, string LastName, string Email, string Phone,
             string Address, DateTime DateOfBirth, string ImagePath, int countryID)
         {
             int RowsAffected = 0;
@@ -151,6 +152,35 @@ namespace ContactsDataLayer
             catch (Exception ex)
             {
                 return false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return (RowsAffected > 0);
+        }
+
+
+        public static bool DeleteContact(int ContactID)
+        {
+            int RowsAffected = 0;
+            SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
+            string Query = @"DELETE Contacts                                              
+                                WHERE ContactID = @ContactID";
+
+            SqlCommand command = new SqlCommand(Query, connection);
+
+            command.Parameters.AddWithValue("@ContactID", ContactID);
+
+            try
+            {
+                connection.Open();
+                RowsAffected = command.ExecuteNonQuery();               
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
             }
             finally
             {

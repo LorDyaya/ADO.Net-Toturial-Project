@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
-using ContactsDataLayer;
+using ContactsData_Layer;
 
-namespace ContactsBusinessLayer
+namespace ContactsBusiness_Layer
 {
     public class ClsContact
     {
@@ -79,6 +79,11 @@ namespace ContactsBusinessLayer
                     DateOfBirth, ImagePath, countryID);
             else
                 return null;            
+        }
+
+        public static bool DeleteContact(int ID)
+        {
+            return ClsContactsDataAccsess.DeleteContact(ID);
         }
 
         public bool Save()
