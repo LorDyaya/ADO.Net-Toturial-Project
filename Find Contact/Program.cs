@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
-using ContactsBusinessLayer;
+using ContactsBusiness_Layer;
 
-namespace Console_App
+namespace Contactspresentation_layer
 {
     internal class Program
     {
@@ -70,12 +70,25 @@ namespace Console_App
             }
         }
 
+        static void testDeleteContact(int ID)
+        {
+            if (ClsContact.DeleteContact(ID)) 
+            {
+                Console.WriteLine("Contact Deleted Successfully");
+            }
+            else
+            {
+                Console.WriteLine("Failed To Delete Contact");
+            }
+        }
+
 
         static void Main(string[] args)
         {
             //testFindContact(3);
             //testAddNewContact();
-            testUpdateContact(2);
+            //testUpdateContact(2);
+            testDeleteContact(7);
             Console.ReadKey();
         }
     }
