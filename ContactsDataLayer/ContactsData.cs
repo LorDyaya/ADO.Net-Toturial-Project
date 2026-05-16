@@ -190,7 +190,6 @@ namespace ContactsData_Layer
             return (RowsAffected > 0);
         }
 
-
         public static DataTable GetAllContacts()
         {
             DataTable dt = new DataTable();
@@ -221,6 +220,33 @@ namespace ContactsData_Layer
 
             return dt;
         }
+
+        public static bool IsContactExist(int ContactID)
+        {
+            bool isFound = false;
+            SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
+            string Query = "SELECT Found = 1 FROM Contacts WHERE ContactID = @ContactID";
+            SqlCommand command = new SqlCommand(Query, connection);
+            command.Parameters.AddWithValue("@ContactID",ContactID);
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                isFound = reader.HasRows;
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                isFound = false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+        }
+
     }
 
 }
