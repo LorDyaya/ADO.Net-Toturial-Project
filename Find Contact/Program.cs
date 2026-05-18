@@ -28,6 +28,21 @@ namespace Contactspresentation_layer
             }
         }
 
+        static void testFindCountry(string Name)
+        {
+            clsCountry country = clsCountry.FindCountry(Name);
+
+            if (country != null)
+            {
+                Console.WriteLine(country.ID);
+                Console.WriteLine(country.CountryName);
+            }
+            else
+            {
+                Console.WriteLine("There No Country With that name!");
+            }
+        }
+
         static void testAddNewContact()
         {
             ClsContact contact = new ClsContact();
@@ -102,6 +117,7 @@ namespace Contactspresentation_layer
 
         static void testIsContactExist(int ID)
         {
+            
             if (ClsContact.IsContactExist(ID)) 
             {
                 Console.WriteLine("Yes, Contact Is Found");
@@ -112,14 +128,28 @@ namespace Contactspresentation_layer
             }
         }
 
+        static void testIsCountryExist(string Name)
+        {
+            if (clsCountry.IsCountryExist(Name)) 
+            {
+                Console.WriteLine("Yes, Country Is Found");
+            }
+            else
+            {
+                Console.WriteLine("No, This Country is Not Exist");
+            }
+        }
+
         static void Main(string[] args)
         {
-            //testFindContact(3);
+            //testFindContact(1);
             //testAddNewContact();
             //testUpdateContact(2);
-            testDeleteContact(201);
+            //testDeleteContact(201);
             //testGetAllContacts();
             //testIsContactExist(133);
+            //testFindCountry("Ghana");
+            testIsCountryExist("Ghana");
 
             Console.ReadKey();
         }

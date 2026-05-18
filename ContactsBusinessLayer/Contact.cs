@@ -120,6 +120,40 @@ namespace ContactsBusiness_Layer
 
     };
 
- 
-  
-}
+    public class clsCountry
+    {
+        public int ID { get; set; }
+        public string CountryName { get; set; }
+
+        public clsCountry()
+        {
+            this.ID = -1;
+            this.CountryName = "";
+        }
+
+        private clsCountry(int ID, string CountryName)
+        {
+            this.ID = ID;
+            this.CountryName = CountryName;
+        }
+
+        public static clsCountry FindCountry(string CountryName)
+        {
+            int ID = -1;
+            if (ClsCountriesDataAccess.GetCountryInfo(ref ID, CountryName))
+            {
+                return new clsCountry(ID, CountryName);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static bool IsCountryExist( string CountryName)
+        {
+            return ClsCountriesDataAccess.IsCountryExist(CountryName);
+        }
+    }
+
+};

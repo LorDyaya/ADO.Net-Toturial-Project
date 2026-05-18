@@ -1,5 +1,6 @@
 ﻿using ContactsDataLayer;
 using System;
+using System.ComponentModel.Design;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -247,6 +248,71 @@ namespace ContactsData_Layer
             return isFound;
         }
 
+  
+
+    }
+
+    public class ClsCountriesDataAccess
+    {
+        public static bool GetCountryInfo(ref int CountryID, string CountryName)
+        {
+            bool IsFound = true;
+            SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
+            string Query = "SELECT * from Countries WHERE CountryName = @CountryName";
+            SqlCommand command = new SqlCommand(Query, connection);
+            command.Parameters.AddWithValue("@CountryName", CountryName);
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    IsFound = true;
+                    CountryID = (int)reader["CountryID"];
+                }
+                else
+                {
+                    IsFound = false;
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                IsFound = false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return IsFound;
+        }
+
+        public static bool IsCountryExist(string CountryName)
+        {
+            bool IsFound = true;
+            SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
+            string Query = "SELECT Found = 1 FROM Countries WHERE CountryName = @CountryName";
+            SqlCommand command = new SqlCommand(Query, connection);
+            command.Parameters.AddWithValue("@CountryName", CountryName);
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                IsFound = reader.HasRows;
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                IsFound = false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return IsFound;
+        }
     }
 
 }
