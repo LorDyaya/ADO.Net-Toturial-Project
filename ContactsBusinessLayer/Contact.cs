@@ -65,6 +65,7 @@ namespace ContactsBusiness_Layer
 
         }
 
+    
         public static ClsContact Find(int ID)
         {
 
@@ -122,27 +123,39 @@ namespace ContactsBusiness_Layer
 
     public class clsCountry
     {
+        public enum EnMode { AddNew = 0, Update = 1 };
+        EnMode Mode = EnMode.AddNew;
         public int ID { get; set; }
         public string CountryName { get; set; }
+        public string Code { get; set; }
+        public string PhoneCode { get; set; }
+
 
         public clsCountry()
         {
             this.ID = -1;
             this.CountryName = "";
+            this.Code = "";
+            this.PhoneCode = "";
         }
 
-        private clsCountry(int ID, string CountryName)
+        private clsCountry(int ID, string CountryName, string Code, string PhoneCode)
         {
             this.ID = ID;
             this.CountryName = CountryName;
+            this.Code = Code;
+            this.PhoneCode = PhoneCode;
+
+            Mode = EnMode.Update;
         }
 
         public static clsCountry FindCountry(string CountryName)
         {
+            string Code = "", PhoneCode = "";
             int ID = -1;
-            if (ClsCountriesDataAccess.GetCountryInfo(ref ID, CountryName))
+            if (ClsCountriesDataAccess.GetCountryInfo(ref ID, CountryName, ref Code , ref PhoneCode))
             {
-                return new clsCountry(ID, CountryName);
+                return new clsCountry(ID, CountryName, Code, PhoneCode);
             }
             else
             {
@@ -150,10 +163,61 @@ namespace ContactsBusiness_Layer
             }
         }
 
+        public static clsCountry Find(int ID)
+        {
+
+            string CountryName = "";
+            string Code = "";
+            string PhoneCode = "";
+
+
+            int CountryID = -1;
+
+            if (ClsCountriesDataAccess.GetCountryInfoByID(ID, ref CountryName, ref Code, ref PhoneCode))
+
+                return new clsCountry(ID, CountryName, Code, PhoneCode);
+            else
+                return null;
+
+        }
+
         public static bool IsCountryExist( string CountryName)
         {
             return ClsCountriesDataAccess.IsCountryExist(CountryName);
         }
+
+        private bool _UpdateCountries()
+        {
+            return ClsCountriesDataAccess.UpdateCountry(this.ID, this.CountryName, this.Code, this.PhoneCode);
+        }
+
+        private bool _AddNewCountry()
+        {
+           this.ID = ClsCountriesDataAccess.AddNewCountry(this.CountryName,this.Code, this.PhoneCode);
+            return (this.ID != -1);
+        }
+
+        public bool Save()
+        //save method
+        {
+            switch (Mode)
+            {
+                case EnMode.AddNew:
+                    if (_AddNewCountry())
+                    {
+                        Mode = EnMode.Update;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case EnMode.Update:
+                    return _UpdateCountries();
+            }
+            return false;
+        }
+
     }
 
 };

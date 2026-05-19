@@ -36,12 +36,34 @@ namespace Contactspresentation_layer
             {
                 Console.WriteLine(country.ID);
                 Console.WriteLine(country.CountryName);
+                Console.WriteLine(country.Code);
+                Console.WriteLine(country.PhoneCode);
             }
             else
             {
                 Console.WriteLine("There No Country With that name!");
             }
         }
+
+        static void testFindCountryByID(int ID)
+
+        {
+            clsCountry Country1 = clsCountry.Find(ID);
+
+            if (Country1 != null)
+            {
+                Console.WriteLine("Name: " + Country1.CountryName);
+                Console.WriteLine("Code: " + Country1.Code);
+                Console.WriteLine("PhoneCode: " + Country1.PhoneCode);
+
+            }
+
+            else
+            {
+                Console.WriteLine("Country [" + ID + "] Not found!");
+            }
+        }
+
 
         static void testAddNewContact()
         {
@@ -68,7 +90,7 @@ namespace Contactspresentation_layer
             if (contact != null)
             {
 
-                contact.FirstName = "Khaled";
+                contact.FirstName = "Khallled";
                 contact.LastName = "Salem";
                 contact.Email = "KS@Gmail.com";
                 contact.Phone = "00922429";
@@ -82,6 +104,26 @@ namespace Contactspresentation_layer
                     Console.WriteLine("Contact Updated Successfully");
                 }
 
+            }
+        }
+
+        static void testUpdateCountry(int ID)
+        {
+            clsCountry country = clsCountry.Find(ID);
+            if (country != null) 
+            {
+                country.CountryName = "EGYPT";
+                country.Code = "02";
+                country.PhoneCode = "+02";
+
+                if (country.Save())
+                {
+                    Console.WriteLine("Country Updated Successfully");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Country is you want to update is Not found!");
             }
         }
 
@@ -148,8 +190,10 @@ namespace Contactspresentation_layer
             //testDeleteContact(201);
             //testGetAllContacts();
             //testIsContactExist(133);
-            //testFindCountry("Ghana");
-            testIsCountryExist("Ghana");
+            //testFindCountry("Germany");
+            // testIsCountryExist("Ghana");
+            testUpdateCountry(7);
+           
 
             Console.ReadKey();
         }
