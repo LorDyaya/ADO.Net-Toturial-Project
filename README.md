@@ -1,23 +1,89 @@
-........ now am done form creating toturial console app with C# about :
-ADO .Net CRUD operations {Update-Delete-Read} Data From MySQL Database
-STEPS:
-1) I restored a data from my Device on "SQl Server Database management system"
-2) Using 3 tier Architecture:
-by Creating 3 Classes Every Class Could Explain a different Tier
-1}presentation Layer(Tier 1):
-No Logic Code Just an emplemntation Methods and Print
-*testFindContact(int ID)
-*testAddNewContact()
-*testUpdateContact(int ID)
-*testDeleteContact(int ID)
-*GetAllContacts()
-2}Business Layer(Tier 2):
-Its a Logical Layer using the OOP creating a Contact Class that contains all contact infos with{get,set}
-and two constructors one public with defult values , second private with parameters to use it in Find
-Method into the class and we ADDED  Save() method to save on the memory any adding or Updating on data
-3}Data Access Layer(Tier 3)
-Here we have to connect Our methods and orders to Our Data base here we control our data or manipulating it
-using ADO .Net .
+# ADO.NET Contacts Management Console App
 
-FINALLY i hope that i could explain what i have done in a good way 
-            <<<<< I wish God continued success >>>>>>>>
+This is a tutorial Console Application built with C# using ADO.NET to perform CRUD Operations on a SQL Server Database.
+
+## Features
+- Add New Contact
+- Update Contact
+- Delete Contact
+- Find Contact By ID
+- Display All Contacts
+
+---
+
+# Technologies Used
+- C#
+- ADO.NET
+- SQL Server
+- 3-Tier Architecture
+- Object-Oriented Programming (OOP)
+
+---
+
+# Database
+I restored the database from my local device using SQL Server Management System (SSMS).
+
+---
+
+# Project Architecture
+
+The project is built using 3-Tier Architecture.
+
+## 1. Presentation Layer
+This layer contains no business logic.
+
+It is only responsible for:
+- Calling methods
+- Printing results
+- Testing features
+
+### Methods
+- `testFindContact(int ID)`
+- `testAddNewContact()`
+- `testUpdateContact(int ID)`
+- `testDeleteContact(int ID)`
+- `GetAllContacts()`
+
+---
+
+## 2. Business Layer
+This is the logical layer of the application.
+
+I created a `Contact` class that contains:
+- Contact information using `get` and `set`
+- Constructors
+- Save functionality
+
+### Features
+- Public constructor with default values
+- Private constructor with parameters
+- `Save()` method for adding and updating data
+
+This layer applies OOP concepts and controls the business logic.
+
+---
+
+## 3. Data Access Layer
+This layer is responsible for:
+- Connecting to the database
+- Executing SQL commands
+- Manipulating data using ADO.NET
+
+All database operations are handled here.
+
+---
+
+# Final Notes
+This project helped me practice:
+- ADO.NET
+- CRUD Operations
+- SQL Server
+- OOP
+- 3-Tier Architecture
+
+I hope I explained the project clearly.
+
+## Author
+Yehia Hamed
+
+> I wish continued success for everyone 🚀
